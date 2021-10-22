@@ -103,7 +103,7 @@ void PairR10S2::compute(int eflag, int vflag)
       jtype = type[j];
 
       if (rsq < cutsq[itype][jtype]) {
-        sigma2inv = 1 / (sigma[itype][jtype] * sigma[itype][jtype]);
+        sigma2inv = 1.0 / (sigma[itype][jtype] * sigma[itype][jtype]);
         rsq *= sigma2inv;
         r12inv = 1.0 / (rsq * rsq * rsq * rsq * rsq * rsq);
         fpair = factor_lj * ((10.0 * r12inv) - (rsq * 4.0 * C_4) - (2.0 * C_2)) * sigma2inv;
@@ -208,8 +208,8 @@ double PairR10S2::init_one(int i, int j)
     cut[i][j] = mix_distance(cut[i][i], cut[j][j]);
   }
 
-  //sigma[j][i] = sigma[i][j];
-  //cut[j][i] = cut[i][j];
+  sigma[j][i] = sigma[i][j];
+  cut[j][i] = cut[i][j];
 
   return cut[i][j];
 }
